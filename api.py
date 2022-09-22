@@ -13,6 +13,11 @@ cache = Cache(config={"CACHE_TYPE": "SimpleCache"})
 cache.init_app(app)
 
 
+@app.route("/")
+def index():
+    return app.send_static_file("index.html")
+
+
 @app.get("/buckets")
 @cache.cached(timeout=86400)
 def get_buckets():

@@ -10,6 +10,10 @@ class ApiTestCase(unittest.TestCase):
     def setUp(self):
         self.app = api.app.test_client()
 
+    def test_index(self):
+        response = self.app.get("/")
+        self.assertEqual(response.status_code, 200)
+
     @patch("osn.buckets.get_read_buckets")
     @patch("osn.buckets.get_all_buckets")
     @patch("osn.credentials.get_credentials")

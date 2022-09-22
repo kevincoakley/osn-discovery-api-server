@@ -1,0 +1,31 @@
+<html>
+    <body>
+        <ul>
+            <li>/buckets</li>
+            <ul>
+                <li>Return a list of publicily readable buckets</li>
+            </ul>
+        <li>/details/<i>&lt;bucket&gt;</i></li>
+            <ul>
+                <li>Return a dict with details of the bucket:</li>
+                <ul>
+                    <li>bucket: full bucket path</li>
+                    <li>bytes-used: bucket size in bytes</li>
+                    <li>name: name of the bucket</li>
+                    <li>object-count: number of objects in the bucket</li>
+                    <li>site: OSN site</li>
+                </ul>
+            </ul>
+        <li>/object-list/<i>&lt;bucket&gt;</i></li>
+        <ul>
+            <li>Return a list of all objects in the bucket with details:</li>
+            <ul>
+                <li>etag: MD5 hash of the object</li>
+                <li>key: name and path of the object</li>
+                <li>last-modified: last modified date and time</li>
+                <li>size: size of the object in bytes</li>
+                <li>url: public URL of the object</li>
+            </ul>
+        </ul>
+    </body>
+</html>
