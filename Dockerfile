@@ -1,4 +1,4 @@
-FROM python:3.10
+FROM python:3.11
 
 COPY osn/ /app/osn
 COPY api.py /app
