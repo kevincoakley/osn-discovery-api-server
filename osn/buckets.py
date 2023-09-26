@@ -16,7 +16,6 @@ def get_all_buckets(credentials):
     buckets = []
 
     for credential in credentials:
-
         rgw = RGWAdmin(
             access_key=credentials[credential]["access_key"],
             secret_key=credentials[credential]["secret_key"],
@@ -38,7 +37,6 @@ def get_read_buckets(buckets, empty_buckets=False):
     read_buckets = []
 
     for bucket in buckets:
-
         bucket_prefix = bucket.split(".")[0]
         site = bucket.replace("%s." % bucket_prefix, "")
 
