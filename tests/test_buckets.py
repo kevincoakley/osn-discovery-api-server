@@ -12,7 +12,6 @@ class BucketsTestCase(unittest.TestCase):
 
     @patch("rgwadmin.RGWAdmin.get_buckets")
     def test_get_all_buckets(self, mock_get_buckets):
-
         credentials = {
             "site_1": {"access_key": "abc123", "secret_key": "def456"},
             "site_2": {"access_key": "ghi789", "secret_key": "jkl012"},
@@ -32,7 +31,6 @@ class BucketsTestCase(unittest.TestCase):
 
     @patch("boto3.client")
     def test_get_read_buckets(self, mock_client):
-
         all_buckets = [
             "bucket_1.site_1",
             "bucket_2.site_1",
@@ -82,7 +80,6 @@ class BucketsTestCase(unittest.TestCase):
 
     @patch("boto3.client")
     def test_get_get_bucket_details(self, mock_client):
-
         correct_bucket_details = {
             "bucket": "bucket_1.site_1",
             "bytes-used": 1000,
@@ -102,7 +99,6 @@ class BucketsTestCase(unittest.TestCase):
 
     @patch("boto3.client")
     def test_get_object_list(self, mock_client):
-
         correct_object_list = [
             {
                 "key": "object_1",

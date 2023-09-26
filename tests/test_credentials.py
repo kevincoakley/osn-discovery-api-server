@@ -9,7 +9,6 @@ class CredentialsTestCase(unittest.TestCase):
         pass
 
     def test_credentials(self):
-
         correct_credentials = {
             "site_1": {"access_key": "abc123", "secret_key": "def456"},
             "site_2": {"access_key": "ghi789", "secret_key": "jkl012"},

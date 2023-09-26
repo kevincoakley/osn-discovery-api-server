@@ -34,7 +34,6 @@ class ApiTestCase(unittest.TestCase):
 
     @patch("osn.buckets.get_bucket_details")
     def test_get_bucket_details(self, mock_get_bucket_details):
-
         bucket_details = {
             "bucket": "bucket_1.site_1",
             "name": "bucket_1",
@@ -52,7 +51,6 @@ class ApiTestCase(unittest.TestCase):
 
     @patch("osn.buckets.get_object_list")
     def test_get_object_list(self, mock_get_object_list):
-
         object_list = [
             {
                 "name": "object_1",
