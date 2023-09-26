@@ -3,6 +3,7 @@ FROM python:3.11
 COPY osn/ /app/osn
 COPY api.py /app
 COPY requirements.txt /app
+COPY static/ /app/static
 
 WORKDIR /app
 
