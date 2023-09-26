@@ -1,0 +1,33 @@
+---
+version: '3'
+services:
+  proxy:
+    image: nginx:1.25.2
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      # Mount the nginx folder with the configuration
+      - ./nginx:/etc/nginx:ro
+      # Mount the letsencrypt certificates
+      - ./certbot/conf:/etc/letsencrypt:ro
+      # Mount the certbot renewal wwwroot
+      - ./certbot/www:/var/www/certbot:ro
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+
+  osn-discovery-api-server:
+    image: kevincoakley/osd-discovery-api:be14f27
+    restart: always
+    volumes:
+      - ./creds.yaml:/app/creds.yaml:ro
+
+  certbot:
+    image: certbot/certbot:v2.6.0
+    restart: always
+    volumes:
+      # Mount the letsencrypt certificates
+      - ./certbot/conf:/etc/letsencrypt
+      # Mount the certbot renewal wwwroot
+      - ./certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew --webroot --webroot-path /var/www/certbot/; sleep 12h & wait $${!}; done;'"
