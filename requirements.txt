@@ -1,5 +1,6 @@
 boto3
 Flask-Caching
+flask-cors
 flask
 pyyaml
 rgwadmin

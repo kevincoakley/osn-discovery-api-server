@@ -2,11 +2,15 @@
 
 from flask import Flask, request
 from flask_caching import Cache
+from flask_cors import CORS, cross_origin
 import osn.buckets
 import osn.credentials
 
 
 app = Flask(__name__)
+cors = CORS(app)
+
+app.config["CORS_HEADERS"] = "Content-Type"
 
 # Configure cache
 cache = Cache(config={"CACHE_TYPE": "SimpleCache"})
@@ -14,11 +18,13 @@ cache.init_app(app)
 
 
 @app.route("/")
+@cross_origin()
 def index():
     return app.send_static_file("index.html")
 
 
 @app.get("/buckets")
+@cross_origin()
 @cache.cached(timeout=86400)
 def get_buckets():
     empty_buckets = bool(request.args.get("empty_buckets", False))
@@ -29,11 +35,13 @@ def get_buckets():
 
 
 @app.get("/details/<bucket>")
+@cross_origin()
 def get_bucket_details(bucket):
     return osn.buckets.get_bucket_details(bucket)
 
 
 @app.get("/object-list/<bucket>")
+@cross_origin()
 @cache.cached(timeout=600)
 def get_object_list(bucket):
     prefix = request.args.get("prefix", "")
