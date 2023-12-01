@@ -97,6 +97,41 @@ class BucketsTestCase(unittest.TestCase):
 
         self.assertEqual(test_bucket_details, correct_bucket_details)
 
+    @patch("osn.buckets.get_read_buckets")
+    @patch("osn.buckets.get_bucket_details")
+    def test_get_read_buckets_with_details(
+        self, mock_get_bucket_details, mock_get_read_buckets
+    ):
+        read_buckets = ["bucket_1.site_1"]
+
+        bucket_details = {
+            "bucket": "bucket_1.site_1",
+            "bytes-used": 1000,
+            "name": "bucket_1",
+            "object-count": 1,
+            "site": "site_1",
+        }
+
+        correct_read_buckets_with_details = {
+            "bucket_1.site_1": {
+                "bytes-used": 1000,
+                "name": "bucket_1",
+                "object-count": 1,
+                "site": "site_1",
+            },
+        }
+
+        mock_get_read_buckets.return_value = read_buckets
+        mock_get_bucket_details.return_value = bucket_details
+
+        test_read_buckets_with_details = buckets.get_read_buckets_with_details(
+            read_buckets
+        )
+
+        self.assertEqual(
+            test_read_buckets_with_details, correct_read_buckets_with_details
+        )
+
     @patch("boto3.client")
     def test_get_object_list(self, mock_client):
         correct_object_list = [

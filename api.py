@@ -23,6 +23,7 @@ def index():
     return app.send_static_file("index.html")
 
 
+@app.get("/v1.0/buckets")
 @app.get("/buckets")
 @cross_origin()
 @cache.cached(timeout=86400)
@@ -34,12 +35,27 @@ def get_buckets():
     return osn.buckets.get_read_buckets(all_buckets, empty_buckets)
 
 
+@app.get("/v2.0/buckets")
+@cross_origin()
+@cache.cached(timeout=86400)
+def get_buckets_with_details():
+    empty_buckets = bool(request.args.get("empty_buckets", False))
+
+    creds = osn.credentials.get_credentials("creds.yaml")
+    all_buckets = osn.buckets.get_all_buckets(creds)
+    return osn.buckets.get_read_buckets_with_details(all_buckets, empty_buckets)
+
+
+@app.get("/v2.0/details/<bucket>")
+@app.get("/v1.0/details/<bucket>")
 @app.get("/details/<bucket>")
 @cross_origin()
 def get_bucket_details(bucket):
     return osn.buckets.get_bucket_details(bucket)
 
 
+@app.get("/v2.0/object-list/<bucket>")
+@app.get("/v1.0/object-list/<bucket>")
 @app.get("/object-list/<bucket>")
 @cross_origin()
 @cache.cached(timeout=600)
