@@ -31,6 +31,7 @@ def get_all_buckets(credentials):
 def get_read_buckets(buckets, empty_buckets=False):
     """
     :param buckets: a list containing the buckets
+    :param empty_buckets: a boolean indicating whether empty buckets should be returned
     :return: a list containing the buckets that can be read
     """
 
@@ -90,6 +91,24 @@ def get_bucket_details(bucket):
             response["ResponseMetadata"]["HTTPHeaders"]["x-rgw-object-count"]
         ),
     }
+
+
+def get_read_buckets_with_details(buckets, empty_buckets=False):
+    """
+    :param buckets: a list containing the buckets
+    :param empty_buckets: a boolean indicating whether empty buckets should be returned
+    :return: a dict containing the buckets that can be read with their details
+    """
+    read_buckets_with_details = {}
+
+    read_buckets = get_read_buckets(buckets, empty_buckets)
+
+    for bucket in read_buckets:
+        details = get_bucket_details(bucket)
+        del details["bucket"]
+        read_buckets_with_details[bucket] = details
+
+    return read_buckets_with_details
 
 
 def get_object_list(bucket, prefix=""):

@@ -1,11 +1,15 @@
 <html>
     <body>
+
+        <h1>OSN API</h1>
+        <p>OSN API is a simple REST API to access public Open Science Network (OSN) data.</p>
+        <h2>API v1.0</h2>
         <ul>
-            <li>/buckets</li>
+            <li>/v1.0/buckets</li>
             <ul>
                 <li>Return a list of publicily readable buckets</li>
             </ul>
-        <li>/details/<i>&lt;bucket&gt;</i></li>
+            <li>/v1.0/details/<i>&lt;bucket&gt;</i></li>
             <ul>
                 <li>Return a dict with details of the bucket:</li>
                 <ul>
@@ -16,9 +20,10 @@
                     <li>site: OSN site</li>
                 </ul>
             </ul>
-        <li>/object-list/<i>&lt;bucket&gt;</i></li>
-        <ul>
-            <li>Return a list of all objects in the bucket with details:</li>
+            <li>/v1.0/object-list/<i>&lt;bucket&gt;</i></li>
+            <ul>
+                <li>Return a list of all objects in the bucket with details:</li>
+            </ul>
             <ul>
                 <li>etag: MD5 hash of the object</li>
                 <li>key: name and path of the object</li>
@@ -27,5 +32,44 @@
                 <li>url: public URL of the object</li>
             </ul>
         </ul>
+        <h2>API v2.0</h2>
+        <ul>
+            <li>/v2.0/buckets</li>
+            <ul>
+                <li>Return a dict of buckets and their details:</li>
+                <ul>
+                    <li>bucket: full bucket path</li>
+                    <ul> 
+                        <li>bytes-used: bucket size in bytes</li>
+                        <li>name: name of the bucket</li>
+                        <li>object-count: number of objects in the bucket</li>
+                        <li>site: OSN site</li>
+                    </ul>
+                </ul>
+            </ul>
+            <li>/v2.0/details/<i>&lt;bucket&gt;</i></li>
+            <ul>
+                <li>Return a dict with details of the bucket:</li>
+                <ul>
+                    <li>bucket: full bucket path</li>
+                    <li>bytes-used: bucket size in bytes</li>
+                    <li>name: name of the bucket</li>
+                    <li>object-count: number of objects in the bucket</li>
+                    <li>site: OSN site</li>
+                </ul>
+            </ul>
+            <li>/v2.0/object-list/<i>&lt;bucket&gt;</i></li>
+            <ul>
+                <li>Return a list of all objects in the bucket with details:</li>
+            </ul>
+            <ul>
+                <li>etag: MD5 hash of the object</li>
+                <li>key: name and path of the object</li>
+                <li>last-modified: last modified date and time</li>
+                <li>size: size of the object in bytes</li>
+                <li>url: public URL of the object</li>
+            </ul>
+        </ul>
+  
     </body>
 </html>
