@@ -37,7 +37,11 @@ class ApiTestCase(unittest.TestCase):
     @patch("osn.buckets.get_all_buckets")
     @patch("osn.credentials.get_credentials")
     def test_get_buckets_v20(
-        self, mock_get_credentials, mock_get_all_buckets, mock_get_read_buckets, mock_get_bucket_details
+        self,
+        mock_get_credentials,
+        mock_get_all_buckets,
+        mock_get_read_buckets,
+        mock_get_bucket_details,
     ):
         buckets = ["bucket_1.site_1"]
         bucket_details = {
