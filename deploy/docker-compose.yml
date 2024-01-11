@@ -17,11 +17,19 @@ services:
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
 
   osn-discovery-api-server:
-    image: kevincoakley/osd-discovery-api:be14f27
+    image: kevincoakley/osd-discovery-api:f980c64
     restart: always
     volumes:
       - ./creds.yaml:/app/creds.yaml:ro
 
+  osn-discovery-webui:
+    image: kevincoakley/osn-discovery-webui:63a2ee3
+    restart: always
+    ports:
+      - 5398:6142
+    environment:
+      - VITE_API_BASE_URL=https://osn-api.sdsc.edu/v2.0
+  
   certbot:
     image: certbot/certbot:v2.6.0
     restart: always
