@@ -23,10 +23,10 @@ services:
       - ./creds.yaml:/app/creds.yaml:ro
 
   osn-discovery-webui:
-    image: kevincoakley/osn-discovery-webui:63a2ee3
+    image: kevincoakley/osn-discovery-webui:eb570cc
     restart: always
     ports:
-      - 5398:6142
+      - 6142:6142
     environment:
       - VITE_API_BASE_URL=https://osn-api.sdsc.edu/v2.0
   
