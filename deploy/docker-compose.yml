@@ -10,6 +10,8 @@ services:
     volumes:
       # Mount the nginx folder with the configuration
       - ./nginx:/etc/nginx:ro
+      # Mount the nginx log folder
+      - ./log:/var/log/osn:rw
       # Mount the letsencrypt certificates
       - ./certbot/conf:/etc/letsencrypt:ro
       # Mount the certbot renewal wwwroot
@@ -17,7 +19,7 @@ services:
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
 
   osn-discovery-api-server:
-    image: kevincoakley/osd-discovery-api:f980c64
+    image: kevincoakley/osd-discovery-api:2a6c882
     restart: always
     volumes:
       - ./creds.yaml:/app/creds.yaml:ro
