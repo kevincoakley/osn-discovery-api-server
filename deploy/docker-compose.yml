@@ -19,7 +19,7 @@ services:
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
 
   osn-discovery-api-server:
-    image: kevincoakley/osd-discovery-api:2a6c882
+    image: ghcr.io/kevincoakley/osn-discovery-api-server:2.0.0
     restart: always
     volumes:
       - ./creds.yaml:/app/creds.yaml:ro
