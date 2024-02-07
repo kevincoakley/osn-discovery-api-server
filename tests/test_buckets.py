@@ -17,15 +17,20 @@ class BucketsTestCase(unittest.TestCase):
             "site_2": {"access_key": "ghi789", "secret_key": "jkl012"},
         }
 
+        bucket_ignore_list = {
+            "site_1": ["ignore_bucket_1"],
+        }
+
         correct_buckets = [
             "bucket_1.site_1",
             "bucket_2.site_1",
             "bucket_1.site_2",
             "bucket_2.site_2",
+            "ignore_bucket_1.site_2",
         ]
 
-        mock_get_buckets.return_value = ["bucket_1", "bucket_2"]
-        test_buckets = buckets.get_all_buckets(credentials)
+        mock_get_buckets.return_value = ["bucket_1", "bucket_2", "ignore_bucket_1"]
+        test_buckets = buckets.get_all_buckets(credentials, bucket_ignore_list)
 
         self.assertEqual(test_buckets, correct_buckets)
 

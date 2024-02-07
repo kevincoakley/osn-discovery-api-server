@@ -7,7 +7,7 @@ from botocore.config import Config
 from rgwadmin import RGWAdmin
 
 
-def get_all_buckets(credentials):
+def get_all_buckets(credentials, bucket_ignore_list):
     """
     :param credentials: a dictionary containing the credentials
     :return: a list containing all buckets
@@ -24,6 +24,11 @@ def get_all_buckets(credentials):
 
         for bucket in rgw.get_buckets():
             buckets.append("%s.%s" % (bucket, credential))
+
+            # Remove the buckets that are in the ignore list
+            if credential in bucket_ignore_list:
+                if bucket in bucket_ignore_list[credential]:
+                    buckets.remove("%s.%s" % (bucket, credential))
 
     return buckets
 

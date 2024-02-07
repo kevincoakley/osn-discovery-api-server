@@ -1,0 +1,6 @@
+site_1:ds
+  - ignore_bucket_1
+  - ignore_bucket_2
+site_2:
+  - ignore_bucket_1
+  - ignore_bucket_3

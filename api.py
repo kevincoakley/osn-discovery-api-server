@@ -4,6 +4,7 @@ from flask import Flask, request
 from flask_caching import Cache
 from flask_cors import CORS, cross_origin
 import osn.buckets
+import osn.bucket_ignore_list
 import osn.credentials
 
 
@@ -31,7 +32,10 @@ def get_buckets():
     empty_buckets = bool(request.args.get("empty_buckets", False))
 
     creds = osn.credentials.get_credentials("creds.yaml")
-    all_buckets = osn.buckets.get_all_buckets(creds)
+    bucket_ignore_list = osn.bucket_ignore_list.get_bucket_ignore_list(
+        "bucket-ignore-list.yaml"
+    )
+    all_buckets = osn.buckets.get_all_buckets(creds, bucket_ignore_list)
     return osn.buckets.get_read_buckets(all_buckets, empty_buckets)
 
 
@@ -42,7 +46,10 @@ def get_buckets_with_details():
     empty_buckets = bool(request.args.get("empty_buckets", False))
 
     creds = osn.credentials.get_credentials("creds.yaml")
-    all_buckets = osn.buckets.get_all_buckets(creds)
+    bucket_ignore_list = osn.bucket_ignore_list.get_bucket_ignore_list(
+        "bucket-ignore-list.yaml"
+    )
+    all_buckets = osn.buckets.get_all_buckets(creds, bucket_ignore_list)
     return osn.buckets.get_read_buckets_with_details(all_buckets, empty_buckets)
 
 

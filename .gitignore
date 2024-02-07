@@ -1,3 +1,4 @@
+bucket-ignore-list.yaml
 creds.yaml
 .coverage
 kc_*
