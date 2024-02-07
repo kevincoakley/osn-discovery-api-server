@@ -1,1 +1,4 @@
+bucket-ignore-list.yaml
+creds.yaml
+certbot/
 log/
