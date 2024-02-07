@@ -1,0 +1,20 @@
+# nginx/sites-available/osn-api.conf
+
+server {
+    listen 80;
+
+    server_name osn-api.sdsc.edu;
+    access_log /var/log/osn/access.log combined;
+    error_log /var/log/osn/error.log warn;
+
+    # Redirect to the discovery webui
+    location / {
+        proxy_pass http://osn-discovery-webui:6142;
+    }
+
+    # Redirect to the discovery api server
+    location /api/ {
+        rewrite ^/api/(.*)$ /$1 break;
+        proxy_pass http://osn-discovery-api-server:8000;
+    }
+}

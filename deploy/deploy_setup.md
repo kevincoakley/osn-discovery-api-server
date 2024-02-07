@@ -2,7 +2,7 @@
 
 ### Build Docker Container Image (optional)
 
-    docker build . -t kevincoakley/osd-discovery-api:<git_hash>
+    docker build . -t kevincoakley/osn-discovery-api-server:<git_hash>
 
 ### Add cred.yml for the osn-discovery-api Service
 
