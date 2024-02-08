@@ -3,6 +3,10 @@
 server {
     listen 80;
 
+    # Adjusting the timeout value
+    proxy_read_timeout 600s;
+    proxy_connect_timeout 600s;
+
     server_name osn-api.sdsc.edu;
     access_log /var/log/osn/access.log combined;
     error_log /var/log/osn/error.log warn;
