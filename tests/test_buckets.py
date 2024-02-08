@@ -10,8 +10,10 @@ class BucketsTestCase(unittest.TestCase):
     def setUp(self):
         pass
 
+    @patch("osn.cache.get_cache")
+    @patch("builtins.open")
     @patch("rgwadmin.RGWAdmin.get_buckets")
-    def test_get_all_buckets(self, mock_get_buckets):
+    def test_get_all_buckets(self, mock_get_buckets, mock_open, mock_get_cache):
         credentials = {
             "site_1": {"access_key": "abc123", "secret_key": "def456"},
             "site_2": {"access_key": "ghi789", "secret_key": "jkl012"},
@@ -21,6 +23,9 @@ class BucketsTestCase(unittest.TestCase):
             "site_1": ["ignore_bucket_1"],
         }
 
+        #
+        # Test without cache
+        #
         correct_buckets = [
             "bucket_1.site_1",
             "bucket_2.site_1",
@@ -34,8 +39,23 @@ class BucketsTestCase(unittest.TestCase):
 
         self.assertEqual(test_buckets, correct_buckets)
 
+        #
+        # Test with cache
+        #
+        mock_get_cache.return_value = ["cache_bucket_1.site_1", "cache_bucket_2.site_1"]
+        test_buckets = buckets.get_all_buckets(credentials, bucket_ignore_list)
+
+        correct_buckets = [
+            "cache_bucket_1.site_1",
+            "cache_bucket_2.site_1",
+        ]
+
+        self.assertEqual(test_buckets, correct_buckets)
+
+    @patch("osn.cache.get_cache")
+    @patch("builtins.open")
     @patch("boto3.client")
-    def test_get_read_buckets(self, mock_client):
+    def test_get_read_buckets(self, mock_client, mock_open, mock_get_cache):
         all_buckets = [
             "bucket_1.site_1",
             "bucket_2.site_1",
@@ -82,6 +102,19 @@ class BucketsTestCase(unittest.TestCase):
         test_read_buckets = buckets.get_read_buckets(all_buckets)
 
         self.assertEqual(test_read_buckets, correct_read_buckets)
+
+        #
+        # Test with cache
+        #
+        mock_get_cache.return_value = ["cache_bucket_1.site_1", "cache_bucket_2.site_1"]
+        test_read_buckets = buckets.get_read_buckets(all_buckets)
+
+        correct_buckets = [
+            "cache_bucket_1.site_1",
+            "cache_bucket_2.site_1",
+        ]
+
+        self.assertEqual(test_read_buckets, correct_buckets)
 
     @patch("boto3.client")
     def test_get_get_bucket_details(self, mock_client):

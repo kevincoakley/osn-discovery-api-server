@@ -27,7 +27,7 @@ def index():
 @app.get("/v1.0/buckets")
 @app.get("/buckets")
 @cross_origin()
-@cache.cached(timeout=86400)
+@cache.cached(timeout=5400)
 def get_buckets():
     empty_buckets = bool(request.args.get("empty_buckets", False))
 
@@ -41,7 +41,7 @@ def get_buckets():
 
 @app.get("/v2.0/buckets")
 @cross_origin()
-@cache.cached(timeout=86400)
+@cache.cached(timeout=5400)
 def get_buckets_with_details():
     empty_buckets = bool(request.args.get("empty_buckets", False))
 

@@ -3,3 +3,4 @@ creds.yaml
 .coverage
 kc_*
 __pycache__
+cache/

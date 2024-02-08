@@ -5,6 +5,7 @@ from botocore import UNSIGNED
 from botocore.client import ClientError
 from botocore.config import Config
 from rgwadmin import RGWAdmin
+import osn.cache
 
 
 def get_all_buckets(credentials, bucket_ignore_list):
@@ -12,6 +13,11 @@ def get_all_buckets(credentials, bucket_ignore_list):
     :param credentials: a dictionary containing the credentials
     :return: a list containing all buckets
     """
+
+    bucket_cache = osn.cache.get_cache("cache/buckets.json")
+
+    if len(bucket_cache) > 0:
+        return bucket_cache
 
     buckets = []
 
@@ -30,6 +36,8 @@ def get_all_buckets(credentials, bucket_ignore_list):
                 if bucket in bucket_ignore_list[credential]:
                     buckets.remove("%s.%s" % (bucket, credential))
 
+    osn.cache.write_cache("cache/buckets.json", buckets)
+
     return buckets
 
 
@@ -39,6 +47,11 @@ def get_read_buckets(buckets, empty_buckets=False):
     :param empty_buckets: a boolean indicating whether empty buckets should be returned
     :return: a list containing the buckets that can be read
     """
+
+    read_buckets = osn.cache.get_cache("cache/read_buckets.json")
+
+    if len(read_buckets) > 0:
+        return read_buckets
 
     read_buckets = []
 
@@ -64,6 +77,8 @@ def get_read_buckets(buckets, empty_buckets=False):
                 read_buckets.append(bucket)
         except ClientError:
             pass
+
+    osn.cache.write_cache("cache/read_buckets.json", read_buckets)
 
     return read_buckets
 
