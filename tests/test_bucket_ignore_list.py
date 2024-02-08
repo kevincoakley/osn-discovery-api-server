@@ -24,10 +24,19 @@ class BucketIgnoreListTestCase(unittest.TestCase):
         self.assertEqual(test_bucket_ignore_list, correct_bucket_ignore_list)
 
         #
-        # Test that the bucket_ignore_list is not read correctly
+        # Test that the bucket_ignore_list returns an empty dictionary when the file is not proper YAML
         #
         test_bucket_ignore_list = bucket_ignore_list.get_bucket_ignore_list(
             "tests/examples/error-bucket-ignore-list.yaml"
+        )
+
+        self.assertEqual(test_bucket_ignore_list, {})
+
+        #
+        # Test that the bucket_ignore_list returns an empty dictionary when the file is missing
+        #
+        test_bucket_ignore_list = bucket_ignore_list.get_bucket_ignore_list(
+            "tests/examples/missing-bucket-ignore-list.yaml"
         )
 
         self.assertEqual(test_bucket_ignore_list, {})
