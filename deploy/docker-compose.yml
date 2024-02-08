@@ -24,6 +24,7 @@ services:
     volumes:
       - ./creds.yaml:/app/creds.yaml:ro
       - ./bucket-ignore-list.yaml:/app/bucket-ignore-list.yaml:ro
+      - ./cache:/app/cache:rw
 
   osn-discovery-webui:
     image: kevincoakley/osn-discovery-webui:eb570cc
