@@ -10,7 +10,7 @@
 
 ### Overwrite the Production Nginx Conf File with the Development Nginx Conf File
 
-    mv nginx/sites-enabled/osn-api.conf-dev nginx/sites-enabled/osn-api.conf
+    mv nginx/sites-enabled/osn-explorer.conf-dev nginx/sites-enabled/osn-explorer.conf
 
 ### Update docker-compose.yml with Local Development Docker Container Images (optional)
 

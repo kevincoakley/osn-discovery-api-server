@@ -30,7 +30,7 @@ services:
     image: kevincoakley/osn-discovery-webui:181c454
     restart: always
     environment:
-      - VITE_API_BASE_URL=https://osn-api.sdsc.edu/api/v2.0
+      - VITE_API_BASE_URL=https://osn-explorer.sdsc.edu/api/v2.0
   
   certbot:
     image: certbot/certbot:v2.6.0
