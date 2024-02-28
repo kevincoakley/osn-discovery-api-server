@@ -27,7 +27,7 @@ services:
       - ./cache:/app/cache:rw
 
   osn-discovery-webui:
-    image: kevincoakley/osn-discovery-webui:eb570cc
+    image: ghcr.io/kevincoakley/osn-discovery-webui:1.0.4
     restart: always
     environment:
       - VITE_API_BASE_URL=https://osn-explorer.sdsc.edu/api/v2.0
