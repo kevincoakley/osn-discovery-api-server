@@ -8,6 +8,8 @@ services:
       - 80:80
       - 443:443
     volumes:
+      # Mount named volume to share files between web UI and nginx proxy
+      - app-volume:/usr/share/nginx/html:rw
       # Mount the nginx folder with the configuration
       - ./nginx:/etc/nginx:ro
       # Mount the nginx log folder
@@ -27,8 +29,10 @@ services:
       - ./cache:/app/cache:rw
 
   osn-discovery-webui:
-    image: ghcr.io/kevincoakley/osn-discovery-webui:1.0.4
+    image: ghcr.io/kevincoakley/osn-discovery-webui:1.1.0
     restart: always
+    volumes:
+      - app-volume:/app/dist
     environment:
       - VITE_API_BASE_URL=https://osn-explorer.sdsc.edu/api/v2.0
   
@@ -41,3 +45,5 @@ services:
       # Mount the certbot renewal wwwroot
       - ./certbot/www:/var/www/certbot
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew --webroot --webroot-path /var/www/certbot/; sleep 12h & wait $${!}; done;'"
+volumes:
+  app-volume:
