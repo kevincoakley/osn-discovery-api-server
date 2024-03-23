@@ -29,7 +29,7 @@ services:
       - ./cache:/app/cache:rw
 
   osn-discovery-webui:
-    image: ghcr.io/kevincoakley/osn-discovery-webui:1.0.5
+    image: ghcr.io/kevincoakley/osn-discovery-webui:1.1.0
     restart: always
     volumes:
       - app-volume:/app/dist
