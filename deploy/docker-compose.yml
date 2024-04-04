@@ -30,7 +30,7 @@ services:
 
   osn-discovery-webui:
     image: ghcr.io/kevincoakley/osn-discovery-webui:1.1.0
-    restart: always
+    restart: "no"
     volumes:
       - app-volume:/app/dist
     environment:
